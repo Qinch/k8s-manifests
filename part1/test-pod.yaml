@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: xx-pod
+spec:
+ containers:
+ - image: qinchaowhut/allen:v1
+   name: xx

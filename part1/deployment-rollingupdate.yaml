@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testqc
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate 
+    rollingUpdate:
+      maxSurge: 30%  
+      maxUnavailable: 15% 
+  minReadySeconds: 180
+  template:
+    metadata:
+      name: allen
+      labels:
+        app: testing
+    spec:
+      containers:
+      - image: qinchaowhut/allen:v1
+        name: nodejs
+        imagePullPolicy: IfNotPresent
+  selector:
+    matchLabels:
+      app: testing

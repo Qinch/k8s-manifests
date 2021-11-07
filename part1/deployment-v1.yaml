@@ -13,7 +13,7 @@ spec:
       containers:
       - image: qinchaowhut/allen:v1
         name: nodejs
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
   selector:
     matchLabels:
       app: testing

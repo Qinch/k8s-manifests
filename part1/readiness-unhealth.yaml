@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testqc 
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: allen
+      labels:
+        app: testing
+    spec:
+      containers:
+      - image: luksa/kubia-unhealthy
+        name: kubia
+        imagePullPolicy: Always
+
+        readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20 
+            periodSeconds: 60
+  selector:
+    matchLabels:
+      app: testing
