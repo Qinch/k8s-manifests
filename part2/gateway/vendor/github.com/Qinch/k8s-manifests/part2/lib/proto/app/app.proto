@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package app;
+import "google/api/annotations.proto";
+
+option go_package = "github.com/Qinch/k8s-manifests/part2/lib/proto/app";
+
+service AppService {
+  rpc SayHello (HelloRequest) returns (HelloResponse){	
+    option (google.api.http) = {
+      get: "/api/v1/sayhello"
+    };
+  };
+}
+
+message HelloRequest { string name = 1; }
+message HelloResponse { string message = 1; }
