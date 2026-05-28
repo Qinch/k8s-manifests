@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package gateway;
+package app_gateway;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/Qinch/k8s-manifests/part2/lib/proto/gateway";
+option go_package = "github.com/Qinch/k8s-manifests/part2/lib/proto/app_gateway";
 
-service GatewayService {
+service AppGatewayService {
   rpc Hello (HelloRequest) returns (HelloResponse) {
     option (google.api.http) = {
       get: "/api/v1/hello"

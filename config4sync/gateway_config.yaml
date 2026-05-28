@@ -1,3 +1,6 @@
+"*.grpcPort": "50051"
+"*.restfulPort": "8080"
+
 "test.grpcServers": 
   - address: ""
     package: ""

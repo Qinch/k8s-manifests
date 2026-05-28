@@ -1,0 +1,2 @@
+"*.grpcPort": "50051"
+"*.restfulPort": "8080"

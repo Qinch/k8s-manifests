@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v3.21.12
-// source: gateway/gateway.proto
+// source: app_gateway/app_gateway.proto
 
-package gateway
+package app_gateway
 
 import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
@@ -31,7 +31,7 @@ type HelloRequest struct {
 
 func (x *HelloRequest) Reset() {
 	*x = HelloRequest{}
-	mi := &file_gateway_gateway_proto_msgTypes[0]
+	mi := &file_app_gateway_app_gateway_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +43,7 @@ func (x *HelloRequest) String() string {
 func (*HelloRequest) ProtoMessage() {}
 
 func (x *HelloRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_gateway_gateway_proto_msgTypes[0]
+	mi := &file_app_gateway_app_gateway_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +56,7 @@ func (x *HelloRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HelloRequest.ProtoReflect.Descriptor instead.
 func (*HelloRequest) Descriptor() ([]byte, []int) {
-	return file_gateway_gateway_proto_rawDescGZIP(), []int{0}
+	return file_app_gateway_app_gateway_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *HelloRequest) GetName() string {
@@ -75,7 +75,7 @@ type HelloResponse struct {
 
 func (x *HelloResponse) Reset() {
 	*x = HelloResponse{}
-	mi := &file_gateway_gateway_proto_msgTypes[1]
+	mi := &file_app_gateway_app_gateway_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -87,7 +87,7 @@ func (x *HelloResponse) String() string {
 func (*HelloResponse) ProtoMessage() {}
 
 func (x *HelloResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_gateway_gateway_proto_msgTypes[1]
+	mi := &file_app_gateway_app_gateway_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -100,7 +100,7 @@ func (x *HelloResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HelloResponse.ProtoReflect.Descriptor instead.
 func (*HelloResponse) Descriptor() ([]byte, []int) {
-	return file_gateway_gateway_proto_rawDescGZIP(), []int{1}
+	return file_app_gateway_app_gateway_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *HelloResponse) GetMessage() string {
@@ -110,38 +110,38 @@ func (x *HelloResponse) GetMessage() string {
 	return ""
 }
 
-var File_gateway_gateway_proto protoreflect.FileDescriptor
+var File_app_gateway_app_gateway_proto protoreflect.FileDescriptor
 
-const file_gateway_gateway_proto_rawDesc = "" +
+const file_app_gateway_app_gateway_proto_rawDesc = "" +
 	"\n" +
-	"\x15gateway/gateway.proto\x12\agateway\x1a\x1cgoogle/api/annotations.proto\"\"\n" +
+	"\x1dapp_gateway/app_gateway.proto\x12\vapp_gateway\x1a\x1cgoogle/api/annotations.proto\"\"\n" +
 	"\fHelloRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\")\n" +
 	"\rHelloResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2_\n" +
-	"\x0eGatewayService\x12M\n" +
-	"\x05Hello\x12\x15.gateway.HelloRequest\x1a\x16.gateway.HelloResponse\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/api/v1/helloB8Z6github.com/Qinch/k8s-manifests/part2/lib/proto/gatewayb\x06proto3"
+	"\amessage\x18\x01 \x01(\tR\amessage2j\n" +
+	"\x11AppGatewayService\x12U\n" +
+	"\x05Hello\x12\x19.app_gateway.HelloRequest\x1a\x1a.app_gateway.HelloResponse\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/api/v1/helloB<Z:github.com/Qinch/k8s-manifests/part2/lib/proto/app_gatewayb\x06proto3"
 
 var (
-	file_gateway_gateway_proto_rawDescOnce sync.Once
-	file_gateway_gateway_proto_rawDescData []byte
+	file_app_gateway_app_gateway_proto_rawDescOnce sync.Once
+	file_app_gateway_app_gateway_proto_rawDescData []byte
 )
 
-func file_gateway_gateway_proto_rawDescGZIP() []byte {
-	file_gateway_gateway_proto_rawDescOnce.Do(func() {
-		file_gateway_gateway_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_gateway_gateway_proto_rawDesc), len(file_gateway_gateway_proto_rawDesc)))
+func file_app_gateway_app_gateway_proto_rawDescGZIP() []byte {
+	file_app_gateway_app_gateway_proto_rawDescOnce.Do(func() {
+		file_app_gateway_app_gateway_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_app_gateway_app_gateway_proto_rawDesc), len(file_app_gateway_app_gateway_proto_rawDesc)))
 	})
-	return file_gateway_gateway_proto_rawDescData
+	return file_app_gateway_app_gateway_proto_rawDescData
 }
 
-var file_gateway_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_gateway_gateway_proto_goTypes = []any{
-	(*HelloRequest)(nil),  // 0: gateway.HelloRequest
-	(*HelloResponse)(nil), // 1: gateway.HelloResponse
+var file_app_gateway_app_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_app_gateway_app_gateway_proto_goTypes = []any{
+	(*HelloRequest)(nil),  // 0: app_gateway.HelloRequest
+	(*HelloResponse)(nil), // 1: app_gateway.HelloResponse
 }
-var file_gateway_gateway_proto_depIdxs = []int32{
-	0, // 0: gateway.GatewayService.Hello:input_type -> gateway.HelloRequest
-	1, // 1: gateway.GatewayService.Hello:output_type -> gateway.HelloResponse
+var file_app_gateway_app_gateway_proto_depIdxs = []int32{
+	0, // 0: app_gateway.AppGatewayService.Hello:input_type -> app_gateway.HelloRequest
+	1, // 1: app_gateway.AppGatewayService.Hello:output_type -> app_gateway.HelloResponse
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -149,26 +149,26 @@ var file_gateway_gateway_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_gateway_gateway_proto_init() }
-func file_gateway_gateway_proto_init() {
-	if File_gateway_gateway_proto != nil {
+func init() { file_app_gateway_app_gateway_proto_init() }
+func file_app_gateway_app_gateway_proto_init() {
+	if File_app_gateway_app_gateway_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_gateway_gateway_proto_rawDesc), len(file_gateway_gateway_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_gateway_app_gateway_proto_rawDesc), len(file_app_gateway_app_gateway_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_gateway_gateway_proto_goTypes,
-		DependencyIndexes: file_gateway_gateway_proto_depIdxs,
-		MessageInfos:      file_gateway_gateway_proto_msgTypes,
+		GoTypes:           file_app_gateway_app_gateway_proto_goTypes,
+		DependencyIndexes: file_app_gateway_app_gateway_proto_depIdxs,
+		MessageInfos:      file_app_gateway_app_gateway_proto_msgTypes,
 	}.Build()
-	File_gateway_gateway_proto = out.File
-	file_gateway_gateway_proto_goTypes = nil
-	file_gateway_gateway_proto_depIdxs = nil
+	File_app_gateway_app_gateway_proto = out.File
+	file_app_gateway_app_gateway_proto_goTypes = nil
+	file_app_gateway_app_gateway_proto_depIdxs = nil
 }
