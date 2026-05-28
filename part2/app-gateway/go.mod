@@ -3,7 +3,7 @@ module github.com/Qinch/k8s-manifests/part2/app-gateway
 go 1.25.0
 
 require (
-	github.com/Qinch/k8s-manifests/part2/lib v0.1.3
+	github.com/Qinch/k8s-manifests/part2/lib v0.1.4
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0
 	google.golang.org/grpc v1.81.1
 )

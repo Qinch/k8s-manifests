@@ -1,7 +1,7 @@
-# github.com/Qinch/k8s-manifests/part2/lib v0.1.1
+# github.com/Qinch/k8s-manifests/part2/lib v0.1.4
 ## explicit; go 1.25.0
 github.com/Qinch/k8s-manifests/part2/lib/proto/app
-github.com/Qinch/k8s-manifests/part2/lib/proto/gateway
+github.com/Qinch/k8s-manifests/part2/lib/proto/app_gateway
 # github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0
 ## explicit; go 1.25.0
 github.com/grpc-ecosystem/grpc-gateway/v2/internal/httprule
