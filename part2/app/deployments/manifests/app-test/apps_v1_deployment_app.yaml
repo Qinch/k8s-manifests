@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: test
+spec:
+  minReadySeconds: 180
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - env:
+        - name: ENV
+          value: test
+        image: qinchaowhut/app:v0.1.1
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sh
+              - -c
+              - sleep 30
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8080
+          periodSeconds: 10
+          successThreshold: 1
+        name: app
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /health
+            port: 8080
+          periodSeconds: 5
+          successThreshold: 1
+        resources:
+          limits:
+            cpu: 1
+            memory: 256Mi
+          requests:
+            cpu: 500m
+            memory: 128Mi
+        startupProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /health
+            port: 8080
+          periodSeconds: 5
+          successThreshold: 1
+        volumeMounts:
+        - mountPath: /k8s-manifests/part2/app/configs
+          name: config-vol
+          readOnly: true
+      - args:
+        - --repo=https://github.com/Qinch/k8s-manifests.git
+        - --ref=master
+        - --root=/configs/git_configs
+        - --link=latest
+        - --sparse-checkout-file=/configs/sparse.txt
+        - --depth=1
+        - --period=60s
+        command:
+        - /git-sync
+        image: qinchaowhut/app-conf:v0.1.1
+        imagePullPolicy: IfNotPresent
+        name: app-conf
+        volumeMounts:
+        - mountPath: /configs/git_configs
+          name: config-vol
+      initContainers:
+      - args:
+        - --repo=https://github.com/Qinch/k8s-manifests.git
+        - --ref=master
+        - --root=/configs/git_configs
+        - --link=latest
+        - --sparse-checkout-file=/configs/sparse.txt
+        - --depth=1
+        - --one-time
+        command:
+        - /git-sync
+        image: qinchaowhut/app-conf:v0.1.1
+        imagePullPolicy: IfNotPresent
+        name: init-config
+        volumeMounts:
+        - mountPath: /configs/git_configs
+          name: config-vol
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - emptyDir: {}
+        name: config-vol

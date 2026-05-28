@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-gateway
+spec:
+  template:
+    spec:
+      containers:
+        - name: app-gateway # app-gateway容器的健康检查
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 5           # 每5秒检查一次
+            failureThreshold: 10       # 最多失败10次
+            successThreshold: 1       # 1次成功即通过
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 10          # 每10秒检查一次
+            failureThreshold: 3        # 最多失败3次
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /health    
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 2
+            successThreshold: 1

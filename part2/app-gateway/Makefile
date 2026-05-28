@@ -1,6 +1,6 @@
 VERSION ?= v0.1.0
-PROJECT_NAME=app
-PROJECT_CONF_NAME=app-conf
+PROJECT_NAME=app-gateway
+PROJECT_CONF_NAME=app-gateway-conf
 
 
 export VERSION

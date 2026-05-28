@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	service "github.com/Qinch/k8s-manifests/part2/app-gateway/internal"
+	grpcCli "github.com/Qinch/k8s-manifests/part2/app-gateway/internal/grpcclients"
 	pbgw "github.com/Qinch/k8s-manifests/part2/lib/proto/app_gateway"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
@@ -18,49 +19,59 @@ import (
 
 var (
 	grpcPort     = "50051"
-	grpcEndpoint = "localhost:" + grpcPort
+	grpcEndpoint = "0.0.0.0:" + grpcPort
 	httpPort     = "8080"
-	httpEndpoint = "localhost:" + httpPort
+	httpEndpoint = "0.0.0.0:" + httpPort
 )
 
 func main() {
-	lis, err := net.Listen("tcp", grpcPort)
+	lis, err := net.Listen("tcp", ":"+grpcPort)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
 	grpcSrv := grpc.NewServer()
-	pbgw.RegisterGatewayServiceServer(grpcSrv, &service.GwService{})
+	pbgw.RegisterAppGatewayServiceServer(grpcSrv, &service.GwService{})
+
 	go func() {
+		log.Println("grpc server is starting")
 		if err := grpcSrv.Serve(lis); err != nil {
 			log.Fatalf("failed to serve: %v", err)
 		}
-		log.Println("grpc server is running")
 	}()
 
 	ctx := context.Background()
 	gwMux := runtime.NewServeMux()
-	err = pbgw.RegisterGatewayServiceHandlerFromEndpoint(ctx, gwMux, grpcEndpoint, []grpc.DialOption{
-		grpc.WithTransportCredentials(insecure.NewCredentials())})
+	err = pbgw.RegisterAppGatewayServiceHandlerFromEndpoint(ctx, gwMux, grpcEndpoint, []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	})
 	if err != nil {
 		log.Fatalf("failed to register: %v", err)
 	}
 
+	rootMux := http.NewServeMux()
+	// 容器健康检查 httpGet: /health
+	rootMux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"status":"UP"}`))
+	})
+
+	rootMux.Handle("/", gwMux)
 	httpSrv := http.Server{
 		Addr:    httpEndpoint,
-		Handler: gwMux,
+		Handler: rootMux,
 	}
+
 	go func() {
-		if err := httpSrv.ListenAndServe(); err != nil {
+		log.Println("http server is starting")
+		if err := httpSrv.ListenAndServe(); (err != nil) && (err != http.ErrServerClosed) {
 			log.Fatalf("failed to serve: %v", err)
 		}
-		log.Println("http server is running")
 	}()
 
 	// wait signal
 	shutdown := make(chan os.Signal)
 	signal.Notify(shutdown,
-		syscall.SIGKILL,
 		syscall.SIGTERM)
 	sig := <-shutdown
 	log.Printf("received shutdown signal:%v", sig.String())
@@ -73,4 +84,6 @@ func main() {
 
 	// close grpc server
 	grpcSrv.GracefulStop()
+	_ = grpcCli.CloseGrpcConn()
+	os.Exit(0)
 }

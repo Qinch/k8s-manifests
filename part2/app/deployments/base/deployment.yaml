@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate 
+    rollingUpdate:
+      maxSurge: 1  
+      maxUnavailable: 0 
+  minReadySeconds: 180
+  selector: # 标签选择器
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - image: mock-image
+          name: app
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /k8s-manifests/part2/app/configs
+              name: config-vol
+              readOnly: true
+        - image: mock-conf-image
+          name: app-conf
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /configs/git_configs
+              name: config-vol
+          command: ["/git-sync"]
+          args:
+                 - --repo=https://github.com/Qinch/k8s-manifests.git
+                 - --ref=master
+                 - --root=/configs/git_configs
+                 - --link=latest
+                 - --sparse-checkout-file=/configs/sparse.txt
+                 - --depth=1
+                 - --period=60s
+      initContainers:
+        - name: init-config
+          image: mock-conf-image
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /configs/git_configs
+              name: config-vol
+          command: ["/git-sync"]
+          args:
+             - --repo=https://github.com/Qinch/k8s-manifests.git
+             - --ref=master
+             - --root=/configs/git_configs
+             - --link=latest
+             - --sparse-checkout-file=/configs/sparse.txt
+             - --depth=1
+             - --one-time
+      volumes: # emptyDir卷
+        - name: config-vol
+          emptyDir: {}
