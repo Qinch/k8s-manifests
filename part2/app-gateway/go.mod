@@ -1,14 +1,14 @@
-module github.com/Qinch/k8s-manifests/part2/gateway
+module github.com/Qinch/k8s-manifests/part2/app-gateway
 
 go 1.25.0
 
 require (
 	github.com/Qinch/k8s-manifests/part2/lib v0.1.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0
 	google.golang.org/grpc v1.81.1
 )
 
 require (
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0 // indirect
 	golang.org/x/net v0.51.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect
 	golang.org/x/text v0.36.0 // indirect

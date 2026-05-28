@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	service "github.com/Qinch/k8s-manifests/part2/gateway/internal"
-	pbgw "github.com/Qinch/k8s-manifests/part2/lib/proto/gateway"
+	service "github.com/Qinch/k8s-manifests/part2/app-gateway/internal"
+	pbgw "github.com/Qinch/k8s-manifests/part2/lib/proto/app-gateway"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

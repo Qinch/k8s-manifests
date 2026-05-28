@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/Qinch/k8s-manifests/part2/gateway/internal/grpcclients"
+	"github.com/Qinch/k8s-manifests/part2/app-gateway/internal/grpcclients"
 	pbapp "github.com/Qinch/k8s-manifests/part2/lib/proto/app"
-	pbgw "github.com/Qinch/k8s-manifests/part2/lib/proto/gateway"
+	pbgw "github.com/Qinch/k8s-manifests/part2/lib/proto/app-gateway"
 )
 
 type GwService struct {
