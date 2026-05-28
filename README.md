@@ -2,6 +2,8 @@
 
 - 上篇相关yaml，见part1
 - 中篇相关yaml，见part2
+    - 1, config4sync为配置文件 
+    - 2,
 
 - tool: minikube
   - (minikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes.)

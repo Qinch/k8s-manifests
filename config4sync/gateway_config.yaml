@@ -1,0 +1,8 @@
+"test.grpcServers": 
+  - address: ""
+    package: ""
+    service: ""
+"prod.grpcServers":
+  - address: ""
+    package: ""
+    service: ""
