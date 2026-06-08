@@ -3,7 +3,6 @@
 
 - Minikube工具:
   - Minikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes.
-  - Minikube是一个构建单节点集群的工具，对于测试k8s和本地开发应用都非常有用。
 
 - [上篇](https://zhuanlan.zhihu.com/p/1995144704958935811)相关yaml，见part1
 	- some files from https://github.com/luksa/kubernetes-in-action
